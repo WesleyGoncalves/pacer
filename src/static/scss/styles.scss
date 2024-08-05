@@ -1,0 +1,346 @@
+// $font-family-base: 'Roboto';
+
+$primary: #FB6000;
+$secondary: #675ABF;
+
+@import "../../../node_modules/bootstrap/scss/bootstrap.scss";
+// @import "../../node_modules/bootstrap-icons/font/bootstrap-icons.scss";
+
+/* Usar as classes do Bootstrap com os respectivos nomes */
+$proatividade: $green;
+$autonomia: $purple;
+$colaboracao: $orange;
+$entrega: $yellow;
+
+.bg-proatividade {
+  background-color: $proatividade !important;
+}
+
+.bg-autonomia {
+  background-color: $autonomia !important;
+}
+
+.bg-colaboracao {
+  background-color: $colaboracao !important;
+}
+
+.bg-entrega {
+  background-color: $entrega !important;
+}
+
+
+/* Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap'
+);
+// @import url('../fonts/Lato/Lato-Regular.woff');
+// @font-face {
+//   font-family: "Lato", Tahoma, sans-serif;
+//   src: url('../fonts/Lato/Lato-Regular.woff') format("woff"),
+//   ;
+// }
+
+html,
+body {
+  font-family: "Lato", Tahoma, sans-serif;
+}
+
+p {
+  @extend .lh-lg;
+  text-indent: 2 * $spacer;
+  // font-size: 1.1 * $font-size-base;
+  font-size: 1.2 * $font-size-base;
+
+  &.ti-0 {
+    text-indent: 0;
+  }
+}
+
+.text-justify {
+  text-align: justify !important;
+}
+
+.subtitle {
+  @extend .ps-3;
+
+  display: inline-block; // melhora a quebra de linha
+}
+
+header {
+  #pacer {
+    #pacer-meaning {
+      display: none !important;
+    }
+  }
+
+  #pacer:hover,
+  #pacer:active {
+    visibility: none;
+
+    #pacer-meaning {
+      display: inline !important;
+    }
+  }
+
+}
+
+.navbar.bg-primary {
+  .nav-vertical-divider {
+    @extend .mx-3, .border-start;
+
+    border-color: $primary-border-subtle !important;
+  }
+
+  .dropdown-menu.bg-primary {
+
+    a:hover,
+    a:focus {
+      background-color: $primary-text-emphasis-dark;
+      color: $primary-border-subtle-dark;
+    }
+  }
+}
+
+main {
+  min-height: 80vh;
+}
+
+.pacer-title {
+  min-height: 45vh;
+
+  p {
+    text-indent: 0;
+  }
+
+  p:nth-child(3) {
+    display: none;
+  }
+
+  &:hover,
+  &:active {
+    cursor: pointer;
+
+    p:nth-child(2) {
+      display: none;
+    }
+
+    p:nth-child(3) {
+      display: block;
+    }
+  }
+}
+
+img.avatar {
+  width: 32px;
+}
+
+table#scores,
+table#projects {
+
+  th:nth-child(n+2),
+  td:nth-child(n+2) {
+    @extend .text-center;
+  }
+
+  .bi-x {
+    font-size: 1.2em;
+  }
+}
+
+form#register-form,
+form#team-form,
+form#project-form {
+  label {
+    padding-right: $spacer;
+  }
+}
+
+form#register-form {
+  [type=submit] {
+    font-size: 1.1rem;
+  }
+}
+
+#what-is-pacer-cards {
+  min-height: 65vh;
+  // border: 2px solid red;
+
+  // * {
+  // border: 2px solid blue;
+  // }
+
+  .column-container {
+    @extend .flex-fill;
+    // padding: 3 * $spacer;
+
+    .column {
+      @extend .d-flex, .flex-column, .align-items-stretch, .h-100;
+
+      .card {
+        @extend .flex-fill, .d-flex, .flex-column, .justify-content-around, .m-0;
+        cursor: pointer;
+
+        &:hover,
+        &:active,
+        &:focus {
+          @extend .bg-opacity-50, .text-bg-light;
+        }
+      }
+
+      &.card-action,
+      .card-action {
+        cursor: pointer;
+
+        &:hover,
+        &:active {
+          @extend .bg-opacity-50;
+        }
+      }
+    }
+
+    p {
+      @extend .ti-0;
+    }
+  }
+}
+
+.article {
+  @extend .mt-5, .ms-md-5;
+  max-width: 1140px;
+
+  h2 {
+    @extend .mb-4;
+  }
+
+  div.icon {
+    @extend .text-center, .align-self-stretch, .d-flex, .justify-content-center, .align-items-center, .rounded-4, .display-1;
+  }
+
+  p {
+    @extend .text-justify;
+  }
+}
+
+button[data-bs-toggle=collapse][aria-expanded=true] {
+  @extend .btn-primary;
+}
+
+.methodologies-with-pacer-card {
+  @extend .text-justify, .pt-5, .rounded-4, .border, .border-dark-subtle;
+
+  p {
+    @extend .ti-0;
+  }
+}
+
+
+.tutorial-evaluate {
+  @extend .border, .rounded-4, .p-4;
+
+  .img-map {
+    position: relative;
+    width: 1086px;
+    height: 149px;
+
+    .visible-img {
+      opacity: 0.9;
+      width: 100%;
+      height: 100%;
+    }
+
+    div {
+      position: absolute;
+      background-image: url("/static/images/tutorial-evaluate.jpg");
+      background-position: left top;
+      background-repeat: no-repeat;
+
+      &.highlight-region {
+        @extend .border, .border-3, .border-warning, .rounded-4;
+
+        opacity: 0;
+        // default size:
+        height: 150px;
+        width: 150px;
+
+        &:hover,
+        &:active,
+        &:focus {
+          opacity: 1;
+        }
+
+        &.map-name {
+          // tamanho do quadro
+          height: 55px;
+          width: 165px;
+          // posicao em que aparecera o quadro
+          left: 0px;
+          top: 0px;
+          // conteudo do quadro
+          background-position: 0px 0px;
+        }
+
+        &.map-sprint {
+          height: 55px;
+          width: 165px;
+          left: 200px;
+          top: 0px;
+          background-position: -200px 0px;
+        }
+
+        &.map-o-que-e {
+          height: 55px;
+          width: 165px;
+          left: 930px;
+          top: 0px;
+          background-position: -930px -0px;
+        }
+
+        &.map-proatividade {
+          height: 80px;
+          width: 215px;
+          left: 0px;
+          top: 85px;
+          background-position: -0px -85px;
+        }
+
+        &.map-autonomia {
+          height: 80px;
+          width: 220px;
+          left: 210px;
+          top: 85px;
+          background-position: -210px -85px;
+        }
+
+        &.map-colaboracao {
+          height: 80px;
+          width: 220px;
+          left: 430px;
+          top: 85px;
+          background-position: -430px -85px;
+        }
+
+        &.map-entrega {
+          height: 80px;
+          width: 220px;
+          left: 650px;
+          top: 85px;
+          background-position: -650px -85px;
+        }
+
+        &.map-enviar {
+          height: 80px;
+          width: 220px;
+          left: 870px;
+          top: 85px;
+          background-position: -870px -85px;
+        }
+      }
+    }
+  }
+
+}
+
+.popover-primary {
+  --bs-popover-border-color: #FB6000;
+  --bs-popover-header-bg: #FB6000;
+  // --bs-popover-header-color: var(--bs-white);
+}

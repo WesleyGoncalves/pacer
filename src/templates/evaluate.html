@@ -1,0 +1,133 @@
+{% extends "base.html" %}
+
+{% import 'components/scores.html' as scoresComponent %}
+{% import 'components/evaluate-form.html' as evaluateFormComponent %}
+
+
+{% block title %}Faça a sua avaliação{% endblock %}
+
+
+{% block content %}
+{{ evaluateFormComponent.evaluateForm(projects=projects) }}
+
+<hr class="w-75 mx-auto">
+<!-- Pacer cards -->
+<div class="container pt-4">
+  <div class="row">
+    <div class="col">
+      <h2 class="mb-4">
+        Precisa de Ajuda?
+        <span class="subtitle fs-5">Escolha uma opção</span>
+      </h2>
+    </div>
+    <div class="col-4 text-end">
+      <a class="btn btn-link" href="/how-to-evaluate-using-pacer">Como avaliar</a>
+    </div>
+  </div>
+  <!-- Botões -->
+  <div class="row gy-4 text-center">
+    <div class="col-6 col-lg-4 col-xl-2 offset-lg-2 offset-xl-1">
+      <button class="btn btn-outline-primary w-100" type="button" data-bs-toggle="collapse"
+        data-bs-target="#card-proatividade" aria-expanded="false"
+        aria-controls="card-proatividade">Proatividade</button>
+    </div>
+    <div class="col-6 col-lg-4 col-xl-2">
+      <button class="btn btn-outline-primary w-100" type="button" data-bs-toggle="collapse"
+        data-bs-target="#card-autonomia" aria-expanded="false" aria-controls="card-autonomia">Autonomia</button>
+    </div>
+    <!-- <div class="col-lg-4 d-none d-lg-block d-xl-none">
+      &nbsp;
+    </div> -->
+    <div class="col-6 col-lg-4 col-xl-2 offset-lg-2 offset-xl-0">
+      <button class="btn btn-outline-primary w-100" type="button" data-bs-toggle="collapse"
+        data-bs-target="#card-colaboracao" aria-expanded="false" aria-controls="card-colaboracao">Colaboração</button>
+    </div>
+    <div class="col-6 col-lg-4 col-xl-3">
+      <button class="btn btn-outline-primary w-100" type="button" data-bs-toggle="collapse"
+        data-bs-target="#card-entrega" aria-expanded="false" aria-controls="card-entrega">Entrega de Resultados</button>
+    </div>
+  </div>
+  <!-- Cards -->
+  <div class="row mt-4 pb-4" id="pacer-cards">
+    <div class="col-12 col-xl-9 offset-xl-1">
+      <div class="collapse multi-collapse" data-bs-parent="#pacer-cards" id="card-proatividade">
+        <div class="card pt-3">
+          <div class="card-title mb-0 px-4 text-end">
+            <label for="close-card-proatividade">Fechar</label>
+            <button type="button" id="close-card-proatividade" class="btn-close" data-bs-toggle="collapse"
+              data-bs-target="#card-proatividade" aria-label="Close" aria-expanded="false"
+              aria-controls="card-autonomia"></button>
+          </div>
+          <div class="card-body">
+            <img src="{{ url_for('static', filename='images/proatividade.jpg') }}" class="img-fluid rounded mx-auto"
+              alt="Proatividade">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-xl-9 offset-xl-1">
+      <div class="collapse multi-collapse" data-bs-parent="#pacer-cards" id="card-autonomia">
+        <div class="card pt-3">
+          <div class="card-title mb-0 px-4 text-end">
+            <label for="close-card-autonomia">Fechar</label>
+            <button type="button" id="close-card-autonomia" class="btn-close" data-bs-toggle="collapse"
+              data-bs-target="#card-autonomia" aria-label="Close" aria-expanded="false"
+              aria-controls="card-autonomia"></button>
+          </div>
+          <div class="card-body">
+            <img src="{{ url_for('static', filename='images/autonomia.jpg') }}" class="img-fluid rounded mx-auto"
+              alt="Autonomia">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-xl-9 offset-xl-1">
+      <div class="collapse multi-collapse" data-bs-parent="#pacer-cards" id="card-colaboracao">
+        <div class="card pt-3">
+          <div class="card-title mb-0 px-4 text-end">
+            <label for="close-card-colaboracao">Fechar</label>
+            <button type="button" id="close-card-colaboracao" class="btn-close" data-bs-toggle="collapse"
+              data-bs-target="#card-colaboracao" aria-label="Close" aria-expanded="false"
+              aria-controls="card-autonomia"></button>
+          </div>
+          <div class="card-body">
+            <img src="{{ url_for('static', filename='images/colaboracao.jpg') }}" class="img-fluid rounded mx-auto"
+              alt="Colaboração">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-xl-9 offset-xl-1">
+      <div class="collapse multi-collapse" data-bs-parent="#pacer-cards" id="card-entrega">
+        <div class="card pt-3">
+          <div class="card-title mb-0 px-4 text-end">
+            <label for="close-card-entrega">Fechar</label>
+            <button type="button" id="close-card-entrega" class="btn-close" data-bs-toggle="collapse"
+              data-bs-target="#card-entrega" aria-label="Close" aria-expanded="false"
+              aria-controls="card-autonomia"></button>
+          </div>
+          <div class="card-body">
+            <img src="{{ url_for('static', filename='images/entrega-de-resultados.jpg') }}"
+              class="img-fluid rounded mx-auto" alt="Entrega de Resultados">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="w-75 mx-auto">
+
+<!-- scores -->
+<div class="container mt-5 overflow-auto">
+  <div class="row">
+    <div class="col">
+      <h2 class="mb-3">Avaliações</h2>
+    </div>
+    <div class="col-6 text-end">
+      <a class="btn btn-link" href="{{ url_for('main.scores') }}">Ver todas</a>
+    </div>
+  </div>
+  {{ scoresComponent.scores(scores=scores) }}
+</div>
+{% endblock content %}

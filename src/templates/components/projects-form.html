@@ -1,0 +1,40 @@
+{% macro projectsForm(project=None) -%}
+{% set url = "main.projects_store" if not project else "main.projects_update" %}
+{% set id = project.id if project else None %}
+<form id="project-form" action="{{ url_for(url, id=id) }}" method="post">
+  <div class="row py-3 gy-3">
+    <div class="col-12 col-sm-7 col-md-5 col-lg-5 col-xl-4 offset-xl-1">
+      <div class="input-group align-items-center">
+        <label for="project_name">Nome:</label>
+        <input type="text" class="form-control" name="project_name" id="project_name" placeholder="Nome do projeto"
+          value="{{ project.name if project else '' }}">
+      </div>
+    </div>
+    <div class="col-12 col-sm-5 col-md-4 col-lg-4 col-xl-3">
+      <div class="input-group align-items-center">
+        <label for="n_sprints">Nº de Sprints:</label>
+        <input type="number" class="form-control" name="n_sprints" id="n_sprints" step="1" min="0" placeholder="0"
+          value="{{ project.n_sprints if project else ''}}">
+      </div>
+    </div>
+    {#
+    <div class="col-12 col-lg-6 col-xl-4">
+      <div class="input-group">
+        <label class="px-3 align-self-center" for="team_image">
+          <img class="avatar rounded-circle" src="{{ url_for('static', filename='images/avatar.jpg')}}" alt="">
+        </label>
+        <input type="file" class="form-control" id="team_image" aria-describedby="team_image" aria-label="Upload">
+        <!-- <button class="btn btn-outline-primary" type="button" id="team_image_btn">Upload</button> -->
+      </div>
+    </div>
+    #}
+    <!-- Send to server -->
+    <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-2 text-center">
+      <button type="submit" class="btn btn-primary w-100 w-md-75">
+        <i class="bi bi-floppy pe-1"></i>
+        <span class="px-2">Salvar</span>
+      </button>
+    </div>
+  </div>
+</form>
+{% endmacro %}

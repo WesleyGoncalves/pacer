@@ -1,0 +1,66 @@
+{% macro loginForm() %}
+<form id="login-form" class="container" action="{{ url_for('auth.login_attempt', next=request.args.get('next', '')) }}"
+  method="post">
+  <h2 class="d-md-none display-3 mb-5 text-center"><strong>Olá!</strong></h2>
+  <h2 class="d-none d-md-block display-5 mb-5 text-center"><strong>Olá!</strong></h2>
+
+  <!-- alert for messages -->
+  {% with messages = get_flashed_messages() %}
+  {% for msg in messages %}
+  <div class="row gy-4">
+    <div class="col-12 col-sm-10 offset-sm-1">
+      <div class="alert alert-danger alert-dismissible fade show bottom-0 end-0 pe-3 pb-3" role="alert">
+        {{ msg }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+  {% endwith %}
+
+  <div class="row gy-4">
+    <div class="col-12 col-sm-10 offset-sm-1">
+      <div class="input-group align-items-center">
+        <!-- <label for="email" class="pe-3">E-mail:</label> -->
+        <span class="input-group-text">
+          <i class="bi bi-envelope-at"></i>
+        </span>
+        <input type="text" class="form-control" name="email" id="email" placeholder="E-mail" autocomplete="on">
+      </div>
+    </div>
+    <div class="col-12 col-sm-10 offset-sm-1">
+      <div class=" input-group align-items-center">
+        <!-- <label for="password" class="pe-3">Senha:</label> -->
+        <span class="input-group-text">
+          <i class="bi bi-lock"></i>
+        </span>
+        <input type="password" class="form-control" name="password" id="password" placeholder="Senha" autocomplete="on">
+      </div>
+    </div>
+  </div>
+  <div class="row mt-4 py-3 gy-2 gy-sm-0">
+    <!-- Send to server -->
+    <div class="col-10 col-sm-5 offset-1 offset-sm-1 pe-sm-2 text-center">
+      <a href="{{ url_for('auth.register') }}" class="btn btn-outline-primary w-100">
+        <span class="px-2">Cadastrar</span>
+      </a>
+    </div>
+    <div class="col-10 col-sm-5 offset-1 offset-sm-0 ps-sm-2 text-center">
+      <button type="submit" class="btn btn-primary w-100">
+        <span class="px-2">Entrar</span>
+        <i class="bi bi-arrow-return-left"></i>
+      </button>
+    </div>
+    {#}
+    <div class="col-10 offset-1 text-center">
+      <a href="{{ url_for('auth.register') }}" class="btn btn-link">Ainda não possui conta? Cadastre-se</a>
+    </div>
+    #}
+  </div>
+  <div class="row mb-3 gy-4">
+    <div class="col-12 text-center">
+      <a href="#" class="btn btn-link">Esqueci minha senha</a>
+    </div>
+  </div>
+</form>
+{% endmacro %}

@@ -1,0 +1,208 @@
+{% macro registerForm(MAX_MEMBERS=None, team=None, Roles=None) -%}
+<form id="register-form" action="{{ url_for('auth.register_store') }}" method="post">
+  {% if team %}
+  <input type="hidden" name="mode" value="update">
+  {% endif %}
+
+  <h2 class="py-3 pb-0 offset-xl-1">Cadastro da Equipe</h2>
+  <!-- Team -->
+  <div class="row py-3 gy-3">
+    <div class="col-12 col-lg-12 col-xl-7 offset-xl-1">
+      <div class="input-group align-items-center">
+        <label for="team_name">Equipe:</label>
+        <input type="text" class="form-control" name="team_name" id="team_name" placeholder="Nome da empresa ou equipe"
+          value="{{ team.name }}">
+      </div>
+    </div>
+    {#
+    <div class="col-12 col-lg-6 col-xl-4">
+      <div class="input-group">
+        <label class="px-3 align-self-center" for="team_image">
+          <img class="avatar rounded-circle" src="{{ url_for('static', filename='images/avatar.jpg')}}" alt="">
+        </label>
+        <input type="file" class="form-control" id="team_image" aria-describedby="team_image" aria-label="Upload">
+        <!-- <button class="btn btn-outline-primary" type="button" id="team_image_btn">Upload</button> -->
+      </div>
+    </div>
+    #}
+  </div>
+
+  <!-- Integrantes -->
+  <h4 class="mt-4 py-3 pb-0 offset-xl-1">Integrantes:</h4>
+  <!-- Product Owner -->
+  {% if team %}
+  {% set product_owner = (team.members | selectattr('role', 'equalto', Roles.PO) | first) %}
+  {% else %}
+  {% set product_owner = None %}
+  {% endif %}
+  <div class="row py-2 gy-3">
+    <label for="product_owner_name" class="d-block d-sm-none d-lg-block d-xl-none">Product Owner:</label>
+    <div class="col-12 col-lg-4 col-xl-4 offset-xl-1">
+      <div class="input-group align-items-center">
+        <label for="product_owner_name" class="d-none d-sm-block d-lg-none d-xl-block">Product Owner:</label>
+        <input type="text" class="form-control" name="product_owner_name" id="product_owner_name"
+          placeholder="Nome do PO" value="{{ product_owner.name }}" required>
+      </div>
+    </div>
+    {#
+    <div class="col-12 col-md-6 col-lg-4 col-xl-4">
+      <div class="input-group">
+        <label class="px-3 align-self-center" for="product_owner_image">
+          <img class="avatar rounded-circle" src="{{ url_for('static', filename='images/avatar.jpg')}}" alt="">
+        </label>
+        <input type="file" class="form-control" id="product_owner_image" aria-describedby="product_owner_image"
+          aria-label="Upload">
+        <!-- <button class="btn btn-outline-primary" type="button" id="team_image_btn">Upload</button> -->
+      </div>
+    </div>
+    #}
+    <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+      <div class="input-group">
+        <span class="input-group-text">
+          <i class="bi bi-envelope-at"></i>
+        </span>
+        <input type="email" class="form-control" name="product_owner_email" id="product_owner_email"
+          placeholder="E-mail" value="{{ product_owner.email }}" required>
+      </div>
+    </div>
+    <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+      <div class="input-group">
+        <span class="input-group-text">
+          <i class="bi bi-key"></i>
+        </span>
+        <input type="password" class="form-control" name="product_owner_password" id="product_owner_password"
+          placeholder="Senha de Acesso">
+      </div>
+    </div>
+  </div>
+  <!-- Scrum Master -->
+  {% if team %}
+  {% set scrum_master = (team.members | selectattr('role', 'equalto', Roles.SM) | first) %}
+  {% else %}
+  {% set scrum_master = None %}
+  {% endif %}
+  <div class="row py-2 gy-3">
+    <label for="scrum_master_name" class="d-block d-sm-none d-lg-block d-xl-none">Scrum Master:</label>
+    <div class="col-12 col-lg-4 col-xl-4 offset-xl-1">
+      <div class="input-group align-items-center">
+        <label for="scrum_master_name" class="d-none d-sm-block d-lg-none d-xl-block">Scrum Master:</label>
+        <input type="text" class="form-control" name="scrum_master_name" id="scrum_master_name"
+          placeholder="Nome do Master" value="{{ scrum_master.name }}" required>
+      </div>
+    </div>
+    {#
+    <div class="col-12 col-lg-6 col-xl-4">
+      <div class="input-group">
+        <label class="px-3 align-self-center" for="scrum_master_image">
+          <img class="avatar rounded-circle" src="{{ url_for('static', filename='images/avatar.jpg')}}" alt="">
+        </label>
+        <input type="file" class="form-control" id="scrum_master_image" aria-describedby="scrum_master_image"
+          aria-label="Upload">
+        <!-- <button class="btn btn-outline-primary" type="button" id="team_image_btn">Upload</button> -->
+      </div>
+    </div>
+    #}
+    <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+      <div class="input-group">
+        <span class="input-group-text">
+          <i class="bi bi-envelope-at"></i>
+        </span>
+        <input type="email" class="form-control" name="scrum_master_email" id="scrum_master_email" placeholder="E-mail"
+          value="{{ scrum_master.email }}" required>
+      </div>
+    </div>
+    <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+      <div class="input-group">
+        <span class="input-group-text">
+          <i class="bi bi-key"></i>
+        </span>
+        <input type="password" class="form-control" name="scrum_master_password" id="scrum_master_password"
+          placeholder="Senha de Acesso">
+      </div>
+    </div>
+  </div>
+
+  <!-- Team Member Fields -->
+  {% macro team_member_fields(member=None, index=None) %}
+  <div class="row py-2 gy-3">
+    <label for="team_member_{{index}}_name" class="d-block d-sm-none d-lg-block d-xl-none">Membro {{index + 1}}:</label>
+    <div class="col-12 col-lg-4 col-xl-4 offset-xl-1">
+      <div class="input-group align-items-center">
+        <label for="team_member_{{index}}_name" class="d-none d-sm-block d-lg-none d-xl-block">Membro {{index +
+          1}}:</label>
+        <input type="text" class="form-control" name="team_member_{{index}}_name" id="team_member_{{index}}_name"
+          placeholder="Nome do Membro" value="{{ member.name }}">
+      </div>
+    </div>
+    {#
+    <div class="col-12 col-lg-6 col-xl-4">
+      <div class="input-group">
+        <label class="px-3 align-self-center" for="team_member_{{index}}_image">
+          <img class="avatar rounded-circle" src="{{ url_for('static', filename='images/avatar.jpg')}}" alt="">
+        </label>
+        <input type="file" class="form-control" id="team_member_{{index}}_image"
+          aria-describedby="team_member_{{index}}_image" aria-label="Upload">
+        <!-- <button class="btn btn-outline-primary" type="button" id="team_image_btn">Upload</button> -->
+      </div>
+    </div>
+    #}
+    <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+      <div class="input-group">
+        <span class="input-group-text">
+          <i class="bi bi-envelope-at"></i>
+        </span>
+        <input type="email" class="form-control" name="team_member_{{index}}_email" id="team_member_{{index}}_email"
+          placeholder="E-mail" value="{{ member.email }}">
+      </div>
+    </div>
+    <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+      <div class="input-group">
+        <span class="input-group-text">
+          <i class="bi bi-key"></i>
+        </span>
+        <input type="password" class="form-control" name="team_member_{{index}}_password"
+          id="team_member_{{index}}_password" placeholder="Senha de Acesso">
+      </div>
+    </div>
+  </div>
+  {% endmacro %}
+
+
+  {% if team %}
+  {% set members = (team.members | selectattr('role', 'equalto', Roles.ST) | list) %}
+  {% for member in members %}
+
+  <!-- Populated fields -->
+  {{ team_member_fields(member=member, index=loop.index0 + 2) }}
+
+  {% endfor %}
+
+  {% for i in range((team.members)|length, team.MAX_MEMBERS) %}
+
+  <!-- Empty fields -->
+  {{ team_member_fields(index=i) }}
+
+  {% endfor %}
+
+  {% else %}
+
+  {% for i in range(2, MAX_MEMBERS) %}
+
+  <!-- Empty form -->
+  {{ team_member_fields(index=i) }}
+
+  {% endfor %}
+
+  {% endif %}
+
+  <!-- Send to server -->
+  <div class="row py-5 gy-3">
+    <div class="col-12 col-lg-8 col-xl-6 offset-lg-2 offset-xl-3 text-center">
+      <button type="submit" class="btn btn-primary w-100">
+        <i class="bi bi-floppy pe-1"></i>
+        <span class="px-2">Salvar</span>
+      </button>
+    </div>
+  </div>
+</form>
+{%- endmacro %}

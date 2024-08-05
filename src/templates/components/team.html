@@ -1,0 +1,30 @@
+{% macro team(team=None) -%}
+{% if team %}
+<!-- Team -->
+<div class="row py-3 gy-3">
+  <div class="col-12 col-lg-12 col-xl-7 offset-xl-1">
+    <p>
+      {{ team.name }}
+      <small class="mx-3 text-subtle-black">
+        <span class="mx-3"> - </span>
+        <em>Criado em {{ team.created_at.strftime('%d/%m/%Y') }}</em>
+      </small>
+    </p>
+  </div>
+  {#
+  <div class="col-12 col-lg-6 col-xl-4">
+    <div class="input-group">
+      <label class="px-3 align-self-center" for="team_image">
+        <img class="avatar rounded-circle" src="{{ url_for('static', filename='images/avatar.jpg')}}" alt="">
+      </label>
+      <input type="file" class="form-control" id="team_image" aria-describedby="team_image" aria-label="Upload">
+      <!-- <button class="btn btn-outline-primary" type="button" id="team_image_btn">Upload</button> -->
+    </div>
+  </div>
+  #}
+</div>
+
+{% else %}
+Nenhum Time encontrado.
+{% endif %}
+{% endmacro %}

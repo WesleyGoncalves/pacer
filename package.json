@@ -1,0 +1,46 @@
+{
+  "name": "wgonc-pacer",
+  "version": "1.0.0",
+  "description": "A avaliação PACER (Proatividade, Autonomia, Colaboração, e Entrega de Resultados) guia as equipes para uma colaboração mais efetiva e um ambiente de trabalho mais saudável",
+  "homepage": "https://github.com/WesleyGoncalves/pacer#readme",
+  "license": "MIT",
+  "keywords": [
+    "pacer",
+    "proactivity",
+    "autonomy",
+    "collaboration",
+    "delivery",
+    "performance metrics",
+    "agile methodologies",
+    "scrum",
+    "proatividade",
+    "autonomia",
+    "colaboração",
+    "entrega de resultados",
+    "metodologias ágeis",
+    "métricas de desempenho"
+  ],
+  "directories": {
+    "doc": "docs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WesleyGoncalves/pacer.git"
+  },
+  "author": "Wesley Gonçalves <dev.wesleygoncalves.com>",
+  "bugs": {
+    "url": "https://github.com/WesleyGoncalves/pacer/issues"
+  },
+  "scripts": {
+    "css-compile": "sass --style compressed --source-map --embed-sources --no-error-css --load-path=node_modules src/static/scss/:src/static/css/",
+    "watch": "nodemon -e html,scss -x \"npm run css-compile\"",
+    "start": "npm run watch & flask run"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "nodemon": "^3.1.2",
+    "sass": "^1.77.4",
+    "@popperjs/core": "^2.11.8",
+    "bootstrap": "^5.3.3"
+  }
+}

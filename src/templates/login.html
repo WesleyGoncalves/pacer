@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% import "components/login-form.html" as loginFormComponent %}
+
+
+{% block title %}Login{% endblock %}
+
+
+{% block content %}
+<div class="container my-5 py-5" style="max-width: 590px">
+
+  <!-- Login Form -->
+  {{ loginFormComponent.loginForm() }}
+
+</div>
+{% endblock content %}

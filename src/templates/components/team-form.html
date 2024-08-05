@@ -1,0 +1,23 @@
+{% macro teamForm(team=None) %}
+{% set url = url_for('main.team_update', id=team.id) if team else "" %} {# url_for('main.team_store') #}
+<form id="team-form" action="{{ url }}" method="post">
+  <div class="row py-2 gy-3">
+    <div class="col-12 col-lg-6">
+      <div class="input-group align-items-center">
+        <label for="team_name">Equipe:</label>
+        <input type="text" class="form-control" name="team_name" id="team_name" placeholder="Nome da empresa ou equipe"
+          value="{{ team.name if team }}" autocomplete="off" required>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-1 py-2 gy-3 text-end">
+    <div class="col-12 ">
+      <button type="button" class="btn btn-outline-primary me-2 w-25" data-bs-dismiss="modal">Cancelar</button>
+      <button type="submit" class="btn btn-primary w-25">
+        <i class="bi bi-floppy pe-1"></i>
+        <span class="px-2">Salvar</span>
+      </button>
+    </div>
+  </div>
+</form>
+{% endmacro %}

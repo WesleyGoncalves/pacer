@@ -1,0 +1,70 @@
+{% macro membersForm(member=None) %}
+{% set url = url_for('main.members_update', id=member.id) if member else url_for('main.members_store') %}
+<form class="membersForm" action="{{ url }}" method="post">
+  <div class="row py-2 gy-3">
+    <!-- <label for="member_name" class="d-block d-sm-none d-lg-block d-xl-none">Membro:</label> -->
+    <div class="col-12 col-lg-6">
+      <div class="input-group align-items-center">
+        <!-- <label for="member_name" class="d-none d-sm-block d-lg-none d-xl-block">Membro:</label> -->
+        <input type="text" class="form-control ps-4" name="member_name" id="member_name{{ member.id if member}}"
+          placeholder="Nome do Membro" value="{{ member.name if member }}" autocomplete="off" required>
+      </div>
+    </div>
+    {#
+    <div class="col-12 col-lg-6 col-xl-4">
+      <div class="input-group">
+        <label class="px-3 align-self-center" for="member_image">
+          <img class="avatar rounded-circle" src="{{ url_for('static', filename='images/avatar.jpg')}}" alt="">
+        </label>
+        <input type="file" class="form-control" id="member_image{{ member.id if member }}"
+          aria-describedby="member_image" aria-label="Upload">
+        <!-- <button class="btn btn-outline-primary" type="button" id="team_image_btn{{ member.id if member }}">Upload</button> -->
+      </div>
+    </div>
+    #}
+    <div class="col-12 col-lg-6">
+      <div class="input-group">
+        <span class="input-group-text">
+          <i class="bi bi-envelope-at"></i>
+        </span>
+        <input type="email" class="form-control" name="member_email" id="member_email{{ member.id if member }}"
+          placeholder="E-mail" value="{{ member.email if member }}" autocomplete="off" required>
+      </div>
+    </div>
+    <div class="col-12 col-lg-6">
+      <div class="input-group" {{ 'data-bs-toggle=popover' if member }} data-bs-trigger="hover focus"
+        data-bs-placement="top" data-bs-custom-class="popover-primary" data-bs-title="Alteração da Senha"
+        data-bs-content="Deixe vazio se quiser manter a senha atual.">
+        <span class="input-group-text">
+          <i class="bi bi-key"></i>
+        </span>
+        <input type="password" class="form-control" name="member_password" id="member_password{{ member.id if member }}"
+          placeholder="Alterar a Senha de Acesso" autocomplete="off">
+      </div>
+    </div>
+    <div class="col-12 col-lg-6">
+      <!-- Role selector -->
+      <div class="input-group">
+        <span class="input-group-text">
+          <i class="bi bi-card-text"></i>
+        </span>
+        <select name="role" id="role{{ member.id if member }}" class="form-select" required>
+          <option value="" disabled selected hidden>Selecione um Papel</option>
+          <option value="SM" {{ "selected" if member and member.role.name=="SM" }}>Scrum Master</option>
+          <option value="PO" {{ "selected" if member and member.role.name=="PO" }}>Product Owner</option>
+          <option value="ST" {{ "selected" if member and member.role.name=="ST" }}>Team</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-1 py-2 gy-3 text-end">
+    <div class="col-12 ">
+      <button type="button" class="btn btn-outline-primary me-2 w-25" data-bs-dismiss="modal">Cancelar</button>
+      <button type="submit" class="btn btn-primary w-25">
+        <i class="bi bi-floppy pe-1"></i>
+        <span class="px-2">Salvar</span>
+      </button>
+    </div>
+  </div>
+</form>
+{% endmacro %}

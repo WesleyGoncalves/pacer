@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% import "components/projects.html" as projectsComponent %}
+{% import "components/projects-form.html" as projectsFormComponent %}
+
+{% block title %}Projetos{% endblock %}
+
+{% block content %}
+<div class="container pt-3">
+  <h2 class="py-3 offset-xl-1">Novo Projeto</h2>
+
+  {{ projectsFormComponent.projectsForm(project=proj) }}
+
+  <hr class="mt-4">
+  <h3 class=" mt-4 py-3 pb-0 offset-xl-1">Projetos</h3>
+  <div class="row py-3 gy-3 offset-xl-1 overflow-auto">
+    {{ projectsComponent.projects(projects) }}
+  </div>
+</div>
+{% endblock %}

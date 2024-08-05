@@ -1,0 +1,39 @@
+{% macro projects(projs=None) -%}
+{% if projs %}
+<table id="projects" class="table table-hover table-borderless table-responsive">
+  <thead>
+    <tr>
+      {#<th scope="col">#</th>#}
+      <th scope="col">Nome</th>
+      <th scope="col">Nº de Sprints</th>
+      <th scope="col">Criado em</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody class="align-middle">
+    {% for proj in projs %}
+    <tr>
+      {#
+      <th scope="row">
+        <img class="rounded-circle me-1 avatar" src="{{ url_for('static', filename='images/avatar.jpg')}}" alt="">
+      </th>
+      #}
+      <td>{{ proj.name }}</td>
+      <td>{{ proj.n_sprints }}</td>
+      <td>{{ proj.created_at.strftime('%d/%m/%Y') }}</td>
+      <td>
+        <a href="{{ url_for('main.projects', id=proj.id) }}" class="btn me-1">
+          <i class="bi bi-pencil"></i>
+        </a>
+        <button class="btn" data-confirm-delete="popover" data-href="{{ url_for('main.projects_delete', id=proj.id) }}">
+          <i class="bi bi-trash"></i>
+        </button>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+Nenhum projeto encontrado.
+{% endif %}
+{% endmacro %}

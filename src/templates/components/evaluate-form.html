@@ -1,0 +1,187 @@
+{% macro evaluateForm(title="", projects=None) -%}
+<form class="container py-5" action="{{ url_for('main.scores_store') }}" method="post">
+  <div class="row align-items-center pb-3">
+    <div class="col">
+      {% if title == "" %}
+      <span></span>
+      {% elif title %}
+      <h2>{{ title }}</h2>
+      {% else %}
+      <h2>Autoavaliação</h2>
+      {% endif %}
+
+      {#
+      <p>
+        Este sistema foi projetado para ajudá-lo a refletir sobre seu desempenho em relação aos quatro princípios
+        fundamentais do PACER: Proatividade, Autonomia, Colaboração e Entrega de Resultados. Aqui está como você pode
+        realizar sua avaliação de forma eficaz
+      </p>
+      #}
+    </div>
+    <div class="col-4 text-end">
+      <a class="btn btn-link btn-primary" href="/what-is-pacer" role="button">
+        <i class="bi bi-question-circle d-sm-none"></i>
+        <span class="ms-2 d-none d-sm-block">O que é PACER?</span>
+      </a>
+    </div>
+  </div>
+  <!-- Project and Sprint -->
+  <div class="row align-items-center">
+    {# Member selector
+    <div class="col-5 col-sm-4 col-lg-2 offset-lg-2 offset-xl-1">
+      <!-- Person selector -->
+      <div class="person dropdown-center" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="top"
+        data-bs-custom-class="popover-primary" data-bs-title="Seleção de Perfil"
+        data-bs-content="Escolha seu nome no menu suspenso.">
+        <button class="btn btn-lg dropdown-toggle align-middle" type="button" data-bs-toggle="dropdown"
+          aria-expanded="false">
+          <img class="rounded-circle me-1 avatar" src="{{ url_for('static', filename='images/avatar.jpg')}}" alt="">
+          Nome
+        </button>
+        <ul class="dropdown-menu">
+          <li>
+            <a class="dropdown-item" href="#">
+              <img class="rounded-circle me-1 avatar" src="{{ url_for('static', filename='images/avatar.jpg')}}" alt="">
+              Nome
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item" href="#">
+              <img class="rounded-circle me-1 avatar" src="{{ url_for('static', filename='images/avatar.jpg')}}" alt="">
+              Nome
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item" href="#">
+              <img class="rounded-circle me-1 avatar" src="{{ url_for('static', filename='images/avatar.jpg')}}" alt="">
+              Nome
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    #}
+    <div class="col-5 col-sm-4 col-lg-2 offset-lg-2 offset-xl-1">
+      <!-- Project selector -->
+      <div id="project-dropdown" class="project dropdown-right" data-bs-toggle="popover" data-bs-trigger="hover focus"
+        data-bs-placement="top" data-bs-custom-class="popover-primary" data-bs-title="Seleção do Projeto"
+        data-bs-content="Escolha o projeto relacionada à sua avaliação.">
+        <button class="btn btn-lg dropdown-toggle align-middle" type="button" data-bs-toggle="dropdown"
+          aria-expanded="false">
+          {#
+          <img class="rounded-circle me-1 avatar" src="{{ url_for('static', filename='images/avatar.jpg')}}" alt="">
+          #}
+          <span id="project_name">Projetos</span>
+        </button>
+
+        <input type="hidden" id="project_id" name="project_id" autocomplete="off">
+
+        <ul id="project-dropdown-menu" class="dropdown-menu">
+          {% for proj in projects %}
+          <li>
+            <a class="dropdown-item py-2" href="#" data-project-id="{{ proj.id }}" data-project-name="{{ proj.name }}"
+              data-project-n-sprints="{{ proj.n_sprints }}">
+              {#
+              <img class="rounded-circle me-1 avatar" src="{{ url_for('static', filename='images/avatar.jpg')}}" alt="">
+              #}
+              {{ proj.name }}
+            </a>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+    <!-- Sprint selector -->
+    <div class="col-5 col-sm-4 col-lg-2">
+      <div id="sprints-dropdown" class="dropdown-start" data-bs-toggle="popover" data-bs-trigger="hover focus"
+        data-bs-placement="right" data-bs-custom-class="popover-primary" data-bs-title="Seleção da Sprint"
+        data-bs-content="Selecione um projeto e, em seguida, a sprint relacionada à sua avaliação.">
+        <button class="btn btn-lg dropdown-toggle align-middle" type="button" data-bs-toggle="dropdown"
+          aria-expanded="false">
+          <span id="n_sprint_title">Sprints</span>
+        </button>
+
+        <input type="hidden" id="n_sprint" name="n_sprint" autocomplete="off">
+
+        <ul id="sprints-dropdown-menu" class="dropdown-menu">
+          <!-- <li> <a class="dropdown-item" href="#"> Sprint 1 </a> </li> -->
+        </ul>
+      </div>
+    </div>
+  </div>
+  <!-- Range -->
+  <div class="row mt-4 gy-3 gx-lg-4">
+    <div class="col-6 col-lg-4 col-xl-2 offset-lg-2 offset-xl-1">
+      <label for="proatividade" class="form-label">
+        Proatividade
+        <button type="button" class="btn btn-sm py-0 align-top" data-bs-toggle="popover" data-bs-trigger="hover focus"
+          data-bs-placement="top" data-bs-custom-class="popover-primary" data-bs-title="Nota de Proatividade"
+          data-bs-content="Deslize a barra para avaliar o seu próprio desempenho, numa escala de 0 a 3, onde 3 é o nível máximo de aplicação do princípio.">
+          <i class="bi bi-question-circle"></i>
+        </button>
+      </label>
+      <div class="d-flex">
+        <input type="range" class="form-range me-3" min="0" max="3" id="proatividade" name="proatividade" value="0"
+          oninput="this.nextElementSibling.value = this.value" autocomplete="off">
+        <output name="proatividade_output">0</output>
+      </div>
+    </div>
+    <div class="col-6 col-lg-4 col-xl-2">
+      <label for="autonomia" class="form-label">
+        Autonomia
+        <button type="button" class="btn btn-sm py-0 align-top" data-bs-toggle="popover" data-bs-trigger="hover focus"
+          data-bs-placement="top" data-bs-custom-class="popover-primary" data-bs-title="Nota de Autonomia"
+          data-bs-content="Deslize a barra para avaliar o seu próprio desempenho, numa escala de 0 a 3, onde 3 é o nível máximo de aplicação do princípio.">
+          <i class="bi bi-question-circle"></i>
+        </button>
+      </label>
+      <div class="d-flex">
+        <input type="range" class="form-range me-3" min="0" max="3" id="autonomia" name="autonomia" value="0"
+          oninput="this.nextElementSibling.value = this.value" autocomplete="off">
+        <output name="autonomia_output">0</output>
+      </div>
+    </div>
+    <!-- <div class="col-lg-4 d-none d-lg-block d-xl-none">
+      &nbsp;
+    </div> -->
+    <div class="col-6 col-lg-4 col-xl-2 offset-lg-2 offset-xl-0">
+      <label for="colaboracao" class="form-label">
+        Colaboração
+        <button type="button" class="btn btn-sm py-0 align-top" data-bs-toggle="popover" data-bs-trigger="hover focus"
+          data-bs-placement="top" data-bs-custom-class="popover-primary" data-bs-title="Nota de Colaboração"
+          data-bs-content="Deslize a barra para avaliar o seu próprio desempenho, numa escala de 0 a 3, onde 3 é o nível máximo de aplicação do princípio.">
+          <i class="bi bi-question-circle"></i>
+        </button>
+
+      </label>
+      <div class="d-flex">
+        <input type="range" class="form-range me-3" min="0" max="3" id="colaboracao" name="colaboracao" value="0"
+          oninput="this.nextElementSibling.value = this.value" autocomplete="off">
+        <output name="colaboracao_output">0</output>
+      </div>
+    </div>
+    <div class="col-6 col-lg-4 col-xl-2">
+      <label for="entrega" class="form-label">
+        Entrega de Resultados
+        <button type="button" class="btn btn-sm py-0 align-top" data-bs-toggle="popover" data-bs-trigger="hover focus"
+          data-bs-placement="top" data-bs-custom-class="popover-primary" data-bs-title="Nota de Entrega de Resultados"
+          data-bs-content="Deslize a barra para avaliar o seu próprio desempenho, numa escala de 0 a 3, onde 3 é o nível máximo de aplicação do princípio.">
+          <i class="bi bi-question-circle"></i>
+        </button>
+
+      </label>
+      <div class="d-flex">
+        <input type="range" class="form-range me-3" min="0" max="3" id="entrega" name="entrega" value="0"
+          oninput="this.nextElementSibling.value = this.value" autocomplete="off">
+        <output name="entrega_output">0</output>
+      </div>
+    </div>
+    <div class="col-12 col-lg-8 col-xl-2 offset-lg-2 offset-xl-0 align-self-end">
+      <button type="submit" class="btn btn-primary w-100">
+        <i class="bi bi-send px-2"></i>
+        <span class="px-2">Enviar</span>
+      </button>
+    </div>
+  </div>
+</form>
+{% endmacro %}

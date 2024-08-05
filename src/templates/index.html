@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% import "components/register-form.html" as registerFormComponent %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+  <div class="row">
+    <div class="col pacer-title d-flex flex-column align-items-center justify-content-center">
+      <h1 class="display-1">PACER</h1>
+      <p class="lead">Proatividade - Autonomia - Colaboração - Entrega de Resultados</p>
+      <p class="lead">
+        <strong style="font-size: 2rem">P</strong>roatividade -
+        <strong style="font-size: 2rem">A</strong>utonomia -
+        <strong style="font-size: 2rem">C</strong>olaboração -
+        <strong style="font-size: 2rem">E</strong>ntrega de
+        <strong style="font-size: 2rem">R</strong>esultados
+      </p>
+    </div>
+  </div>
+
+  <article class="container">
+    <hr>
+    <!-- Introdução -->
+    <section class="row m-5 mb-0">
+      <div class="col">
+        <h2 class="mb-3">Introdução</h2>
+        <p>
+          <!-- Problema -->
+          No ambiente acelerado de desenvolvimento de projetos, especialmente em metodologias ágeis, equipes
+          frequentemente enfrentam desafios relacionados à comunicação, responsabilidade, e alinhamento de objetivos.
+          Isso pode levar a atrasos, produtos finais que não atendem às expectativas e uma moral baixa da equipe.
+        </p>
+      </div>
+    </section>
+    <section class="row mx-5">
+      <div class="col">
+        <p>
+          <!-- Como o PACER pode ser a solução -->
+          Respondendo a esses desafios, o método PACER oferece um framework que fortalece a cultura de colaboração e
+          responsabilidade mútua dentro das equipes. Ao enfatizar princípios como propósito claro, responsabilidade
+          pessoal e coletiva, e comunicação eficaz, o PACER ajuda a esclarecer propósitos, aumentar a autonomia dos
+          membros da equipe e cultivar respeito mútuo. Essas práticas não apenas abordam as raízes comuns dos problemas
+          em projetos ágeis, mas também promovem um ambiente de trabalho mais saudável e produtivo.
+        </p>
+      </div>
+    </section>
+    <section class="row mx-5">
+      <div class="col">
+        <p>
+          <!-- Chamada para ler mais sobre o PACER -->
+          Ao aprofundar seu entendimento sobre o PACER, você descobre maneiras valiosas de elevar sua contribuição para
+          a equipe, melhorando tanto a comunicação quanto a eficácia pessoal no trabalho. Explorar esse método oferece
+          insights que ajudam você a navegar melhor pelos desafios dos projetos ágeis. <a href="/what-is-pacer">Descubra
+            mais sobre o PACER</a> e comece a transformar sua equipe hoje mesmo!
+        </p>
+      </div>
+    </section>
+    <div class="row m-3 mb-5 py-3">
+      <div class="col text-center">
+        <a class="btn btn-primary btn-lg" href="/what-is-pacer">O que é PACER? <i class="bi bi-chevron-right"></i></a>
+        <a class="btn btn-outline-primary btn-lg ms-5 px-5" href="/evaluate">
+          <!-- <i class="bi bi-pencil pe-1"></i> -->
+          Avaliar
+        </a>
+      </div>
+    </div>
+  </article>
+  {% endblock content %}

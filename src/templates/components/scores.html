@@ -1,0 +1,40 @@
+{% macro scores(scores=None) -%}
+<table id="scores" class="table table-hover table-borderless table-responsive">
+  <thead>
+    <tr>
+      {#<th scope="col">#</th>#}
+      <th scope="col">Projeto</th>
+      <th scope="col">Sprint</th>
+      <th scope="col">Nome</th>
+      <th scope="col">Proatividade</th>
+      <th scope="col">Autonomia</th>
+      <th scope="col">Colaboração</th>
+      <th scope="col">Entrega de Resultados</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody class="align-middle">
+    {% for score in scores: %}
+    <tr>
+      {#
+      <th scope="row">
+        <img class="rounded-circle me-1 avatar" src="{{ url_for('static', filename='images/avatar.jpg')}}" alt="">
+      </th>
+      #}
+      <td>{{ score.project.name }}</td>
+      <td>{{ score.n_sprint }}</td>
+      <td>{{ score.member.name }}</td>
+      <td>{{ score.score_proatividade }}</td>
+      <td>{{ score.score_autonomia }}</td>
+      <td>{{ score.score_colaboracao }}</td>
+      <td>{{ score.score_entrega }}</td>
+      <td>
+        <button class="btn" data-confirm-delete="popover" data-href="{{ url_for('main.scores_delete', id=score.id) }}">
+          <i class="bi bi-trash"></i>
+        </button>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endmacro %}

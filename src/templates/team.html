@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+{% import "components/team.html" as teamComponent %}
+{% import "components/team-form.html" as teamFormComponent %}
+{% import "components/members.html" as membersComponent %}
+{% import "components/members-form.html" as membersFormComponent %}
+
+{% block title %}Equipe{% endblock %}
+
+{% block content %}
+<!-- Team -->
+<div class="container pt-4">
+  <div class="row">
+    <div class="col-12">
+      {% with messages = get_flashed_messages() %}
+      {% for mens in messages %}
+      <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <span>{{ mens }}</span>
+        <button type="button" class="btn-close me-3" data-bs-dismiss="alert"></button>
+      </div>
+      {% endfor %}
+      {% endwith %}
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <h2 class="mb-4"> Equipe </h2>
+    </div>
+    <div class="col-4 text-end">
+      <button class="btn btn-link" data-bs-toggle="modal" data-bs-target="#teamFormModal">
+        <i class="bi bi-pencil pe-2"></i>
+        Editar
+      </button>
+    </div>
+  </div>
+  <div class="row gy-4 text-start">
+    <div class="col-12">
+      {{ teamComponent.team(team=team) }}
+    </div>
+  </div>
+  <hr class="mx-auto my-4">
+  <!-- Members -->
+  <div class="row mt-5">
+    <div class="col">
+      <h2 class="mb-4">Membros da Equipe </h2>
+    </div>
+    <div class="col-4 text-end">
+      <button class="btn btn-link" data-bs-toggle="modal" data-bs-target="#memberFormModal">
+        <!-- <i class="bi bi-person-add pe-2"></i> -->
+        <i class="bi bi-plus pe-1"></i>
+        Add Membro
+      </button>
+    </div>
+  </div>
+  <div class="row gy-4 mt-1">
+    <div class="col-12">
+      {{ membersComponent.members(members=team.members) }}
+    </div>
+  </div>
+</div>
+
+<!-- Team Modal -->
+<div class="modal fade" id="teamFormModal" tabindex="-1" aria-labelledby="addTeam" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="addTeam">Editar Equipe</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body pt-4">
+        {{ teamFormComponent.teamForm(team=team) }}
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Member Modal -->
+<div class="modal fade" id="memberFormModal" tabindex="-1" aria-labelledby="addMember" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="addMember">Adicionar Membro</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body pt-4">
+        {{ membersFormComponent.membersForm() }}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
