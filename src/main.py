@@ -294,6 +294,8 @@ def evaluate():
     # scores list
     scores = (
         db.session.query(Score)
+        .join(Project)
+        .filter(Project.team_id == current_user.team_id)
         .order_by(
             Score.project_id.desc(),
             Score.n_sprint.desc(),
@@ -311,6 +313,8 @@ def scores():
     # scores list
     scores = (
         db.session.query(Score)
+        .join(Project)
+        .filter(Project.team_id == current_user.team_id)
         .order_by(
             Score.project_id.desc(),
             Score.n_sprint.desc(),
